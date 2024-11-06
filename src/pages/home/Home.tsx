@@ -3,7 +3,7 @@ import Sidebar from '../../components/sidebar/Sidebar';
 import { useGetFacebookPagesQuery } from '../../redux/features/api/endPoints/facebookPageEndpoint/facebookPageEndpoint';
 import Loader from '../../components/loader/Loader';
 import ErrorMessage from '../../components/errorMessage/ErrorMessage';
-import FacebookPageCard from '../../components/cards/facebookPageCard/FacebookPageCard';
+import PageCard from '../../components/cards/pageCard/PageCard';
 
 export default function Home() {
     useTitle('Home');
@@ -25,7 +25,7 @@ export default function Home() {
     if (!isLoading && !isError && facebookPages && facebookPages.length > 0)
         content =
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-5 gap-y-5 rounded-xl">
-                {facebookPages && facebookPages.map((facebookPage: any) => <FacebookPageCard key={facebookPage._id} facebookPage={facebookPage} />)}
+                {facebookPages && facebookPages.map((facebookPage: any) => <PageCard key={facebookPage._id} facebookPage={facebookPage} />)}
             </div>
 
     return (

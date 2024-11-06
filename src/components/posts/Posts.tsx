@@ -1,9 +1,9 @@
 import { useGetFacebookPagePostsQuery } from "../../redux/features/api/endPoints/facebookPageEndpoint/facebookPageEndpoint";
-import FacebookPagePostCard from "../cards/facebookPagePostCard/FacebookPagePostCard";
+import FacebookPagePostCard from "../cards/postCard/PostCard";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import Loader from "../loader/Loader";
 
-export default function FacebookPagePosts({ facebookPage }: any) {
+export default function Page({ facebookPage }: any) {
     const { data: postsData, isError: isPostsError, isLoading: postsIsLoading } = useGetFacebookPagePostsQuery(facebookPage?.pageId as string);
 
     const posts = postsData?.data?.posts;

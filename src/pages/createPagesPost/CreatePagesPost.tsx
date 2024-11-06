@@ -13,7 +13,7 @@ interface PostData {
 }
 
 export default function CreatePost() {
-    useTitle('Create Post');
+    useTitle('Create New Post to All Pages');
     const [errorMessage, setErrorMessage] = useState('');
 
     const [postToFacebookPages, { data, error, isLoading }] = usePostToFacebookPagesMutation();

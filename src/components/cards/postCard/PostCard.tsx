@@ -1,6 +1,6 @@
 import { format, formatDistanceToNow, parseISO } from "date-fns";
 
-export default function FacebookPagePostCard({ post, facebookPage }: any) {
+export default function PostCard({ post, facebookPage }: any) {
     // Format the dates
     const createdTimeAgo = post?.created_time ? formatDistanceToNow(parseISO(post?.created_time), { addSuffix: true }) : 'N/A';
     const createdTime = post?.created_time ? format(parseISO(post?.created_time), 'h:mm:ss a - MMM d, yyyy') : 'N/A';

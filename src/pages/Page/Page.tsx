@@ -3,7 +3,7 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import { useGetFacebookPageQuery } from "../../redux/features/api/endPoints/facebookPageEndpoint/facebookPageEndpoint";
 import Loader from "../../components/loader/Loader";
 import ErrorMessage from "../../components/errorMessage/ErrorMessage";
-import FacebookPagePosts from "../../components/facebookPagePosts/FacebookPagePosts";
+import Posts from "../../components/posts/Posts";
 
 export default function FacebookPage() {
     const { pageId } = useParams();
@@ -20,16 +20,19 @@ export default function FacebookPage() {
         content = <ErrorMessage message="Something went wrong." />;
 
     if (!isLoading && !isError && facebookPage)
-        content = <FacebookPagePosts facebookPage={facebookPage} />
+        content = <Posts facebookPage={facebookPage} />
 
     return (
         <div className="flex h-screen">
             {/* Sidebar */}
-            <Sidebar activeMenu='' />
+            <Sidebar activeMenu='Pages' />
 
             {/* Main Content */}
             <main className="w-[75%] pb-6 px-16 overflow-y-auto">
                 <h2 className='text-center text-3xl my-10 font-bold'>{facebookPage?.pageName}</h2>
+
+                i need here Posts, Create post,  about
+
                 {content}
             </main>
         </div>

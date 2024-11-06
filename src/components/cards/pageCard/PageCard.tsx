@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
 
-export default function FacebookPageCard({ facebookPage }: any) {
+export default function PageCard({ facebookPage }: any) {
     const navigate = useNavigate();
 
     const goToFacebookPage = () => {
-        navigate(`/facebook-pages/${facebookPage?.pageId}`);
+        navigate(`/pages/${facebookPage?.pageId}`);
     };
 
     return (
