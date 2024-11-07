@@ -17,7 +17,7 @@ export const facebookPageEndpoint = globalApi.injectEndpoints({
                 url: `/api/facebook-pages`,
                 method: "GET"
             }),
-            keepUnusedDataFor: 0, // default 60 seconds
+            keepUnusedDataFor: 60, // default 60 seconds
             providesTags: ['FacebookPages']
         }),
 
@@ -26,7 +26,7 @@ export const facebookPageEndpoint = globalApi.injectEndpoints({
                 url: `/api/facebook-pages/${pageId}`,
                 method: 'GET'
             }),
-            keepUnusedDataFor: 0,
+            keepUnusedDataFor: 60,
             providesTags: (result, error, arg) => [{ type: 'FacebookPage', id: arg }]
         }),
 
@@ -35,8 +35,17 @@ export const facebookPageEndpoint = globalApi.injectEndpoints({
                 url: `/api/facebook-pages/${pageId}/posts`,
                 method: 'GET'
             }),
-            keepUnusedDataFor: 0,
+            keepUnusedDataFor: 60,
             providesTags: (result, error, arg) => [{ type: 'FacebookPagePosts', id: arg }]
+        }),
+
+        postToFacebookPage: builder.mutation<any, any>({
+            query: (data) => ({
+                url: `/api/facebook-pages/create-page-post`,
+                method: 'POST',
+                body: data,
+            }),
+            invalidatesTags: ['FacebookPagePosts'],
         }),
 
         postToFacebookPages: builder.mutation<any, any>({
@@ -55,5 +64,6 @@ export const {
     useGetFacebookPagesQuery,
     useGetFacebookPageQuery,
     useGetFacebookPagePostsQuery,
+    usePostToFacebookPageMutation,
     usePostToFacebookPagesMutation,
 } = facebookPageEndpoint;

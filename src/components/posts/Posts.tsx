@@ -1,5 +1,5 @@
 import { useGetFacebookPagePostsQuery } from "../../redux/features/api/endPoints/facebookPageEndpoint/facebookPageEndpoint";
-import FacebookPagePostCard from "../cards/postCard/PostCard";
+import PostCard from "../cards/postCard/PostCard";
 import ErrorMessage from "../errorMessage/ErrorMessage";
 import Loader from "../loader/Loader";
 
@@ -8,8 +8,6 @@ export default function Page({ facebookPage }: any) {
 
     const posts = postsData?.data?.posts;
     // const paging = postsData?.data?.paging;
-
-    console.log(posts)
 
     if (postsIsLoading) return <Loader />;
 
@@ -21,7 +19,7 @@ export default function Page({ facebookPage }: any) {
 
     return (
         <div className="flex flex-col items-center">
-            {posts && posts.map((post: any) => <FacebookPagePostCard key={post._id} post={post} facebookPage={facebookPage} />)}
+            {posts && posts.map((post: any) => <PostCard key={post.id} post={post} facebookPage={facebookPage} />)}
         </div>
     )
 }

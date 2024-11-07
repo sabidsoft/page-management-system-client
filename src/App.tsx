@@ -8,9 +8,9 @@ import PrivacyPolicy from "./pages/privacyPolicy/PrivacyPolicy";
 import DataDeletionInstructions from "./pages/dataDeletionInstructions/DataDeletionInstructions";
 import AdminSignup from "./pages/adminSignup/AdminSignup";
 import AdminLogin from "./pages/adminLogin/AdminLogin";
-import CreatePagesPost from "./pages/createPagesPost/CreatePagesPost";
 import AddFacebookPage from "./pages/addFacebookPage/AddFacebookPage";
 import Page from "./pages/Page/Page";
+import CreatePagesPost from "./pages/createPagesPost/CreatePagesPost";
 
 export default function App() {
   const initialAuthChecked = useInitialAuthCheck();
@@ -21,6 +21,7 @@ export default function App() {
     <Router>
       <Routes>
         <Route path="/" element={<PrivateRoute><Home /></PrivateRoute>} />
+        <Route path="/pages" element={<PrivateRoute><Home /></PrivateRoute>} />
         <Route path="/pages/:pageId" element={<PrivateRoute><Page /></PrivateRoute>} />
         <Route path="/create-pages-post" element={<PrivateRoute><CreatePagesPost /></PrivateRoute>} />
         <Route path="/add-facebook-page" element={<PrivateRoute><AddFacebookPage /></PrivateRoute>} />

@@ -4,16 +4,10 @@ import Sidebar from '../../components/sidebar/Sidebar';
 import { usePostToFacebookPagesMutation } from '../../redux/features/api/endPoints/facebookPageEndpoint/facebookPageEndpoint';
 import { toast } from 'react-toastify';
 import Loader from '../../components/loader/Loader';
+import { PostData } from './types';
 
-interface PostData {
-    message: string;
-    link?: string;
-    mediaType: 'text' | 'photo' | 'video';
-    mediaFile?: File | null;
-}
-
-export default function CreatePost() {
-    useTitle('Create New Post to All Pages');
+export default function CreatePagesPost() {
+    useTitle('Create Pages Post');
     const [errorMessage, setErrorMessage] = useState('');
 
     const [postToFacebookPages, { data, error, isLoading }] = usePostToFacebookPagesMutation();
@@ -72,19 +66,19 @@ export default function CreatePost() {
     return (
         <div className="flex h-screen">
             {/* Sidebar */}
-            <Sidebar activeMenu="Create Post" />
+            <Sidebar activeMenu="Create Pages Post" />
 
             {/* Main Content */}
             <main className="w-[75%] overflow-y-auto">
                 {isLoading && <Loader />}
 
                 <div className='flex justify-center items-center h-full'>
-                    <form onSubmit={handleSubmit} className="bg-[#fff] w-[900px] px-10 pb-10 rounded-xl shadow">
-                        <h2 className='text-center text-2xl py-8 font-bold'>Create Post</h2>
+                    <form onSubmit={handleSubmit} className="bg-[#fff] w-[900px] p-8 rounded-xl shadow">
+                        <h2 className='text-center text-2xl pb-8 font-bold'>Create Pages Post</h2>
 
                         {/* Message Field */}
                         <div className='mb-5'>
-                            <label htmlFor="message" className="block text-sm font-medium">Message</label>
+                            <label htmlFor="message" className="block font-medium mb-1">Message</label>
                             <textarea
                                 id="message"
                                 name="message"
@@ -97,7 +91,7 @@ export default function CreatePost() {
 
                         {/* Media Type Selector */}
                         <div className='mb-5'>
-                            <label htmlFor="mediaType" className="block text-sm font-medium">Media Type</label>
+                            <label htmlFor="mediaType" className="block font-medium mb-1">Media Type</label>
                             <select
                                 id="mediaType"
                                 name="mediaType"
@@ -114,7 +108,7 @@ export default function CreatePost() {
                         {/* Link Field - Only for Text Media Type */}
                         {postData.mediaType === 'text' && (
                             <div className='mb-5'>
-                                <label htmlFor="link" className="block text-sm font-medium">Link (If you want to post a link)</label>
+                                <label htmlFor="link" className="block font-medium mb-1">Link (If you want to post a link)</label>
                                 <input
                                     type="url"
                                     id="link"
@@ -130,7 +124,7 @@ export default function CreatePost() {
                         {/* File Input - For Photo and Video Types */}
                         {(postData.mediaType === 'photo' || postData.mediaType === 'video') && (
                             <div className='mb-5'>
-                                <label htmlFor="mediaFile" className="block text-sm font-medium">Choose {postData.mediaType}</label>
+                                <label htmlFor="mediaFile" className="block font-medium mb-1">Choose {postData.mediaType}</label>
                                 <input
                                     type="file"
                                     id="mediaFile"
@@ -146,7 +140,7 @@ export default function CreatePost() {
                             type="submit"
                             className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
                         >
-                            Submit Post
+                            Submit Post to All Pages
                         </button>
 
                         {errorMessage && <p className='text-red-500 mt-4'>{errorMessage}</p>}

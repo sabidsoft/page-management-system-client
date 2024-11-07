@@ -1,10 +1,13 @@
 import { format, formatDistanceToNow, parseISO } from "date-fns";
+import { Link } from "react-router-dom";
 
 export default function PostCard({ post, facebookPage }: any) {
     // Format the dates
     const createdTimeAgo = post?.created_time ? formatDistanceToNow(parseISO(post?.created_time), { addSuffix: true }) : 'N/A';
     const createdTime = post?.created_time ? format(parseISO(post?.created_time), 'h:mm:ss a - MMM d, yyyy') : 'N/A';
     const updatedTime = post?.updated_time ? format(parseISO(post?.updated_time), 'h:mm:ss a - MMM d, yyyy') : 'N/A';
+
+    console.log(post)
 
     return (
         <div className="bg-[#fff] w-[700px] mb-5 rounded-xl shadow">
@@ -21,20 +24,7 @@ export default function PostCard({ post, facebookPage }: any) {
                     </div>
                 </div>
                 <div>
-                    <p>
-                        <strong className="font-semibold text-sm">Privacy</strong>
-                    </p>
-                    <p className="text-[#777] text-xs">
-                        {post?.privacy?.description === 'Public' && 'Public'}
-                        {post?.privacy?.description === 'Only me' && 'Only me'}
-                        {post?.privacy?.description === 'Your friends' && 'Friends'}
-                        {
-                            post?.privacy?.description === 'Public' ||
-                                post?.privacy?.description === 'Only me' ||
-                                post?.privacy?.description === 'Your friends' ?
-                                null : 'Custom'
-                        }
-                    </p>
+                    Test
                 </div>
             </div>
 
@@ -43,10 +33,10 @@ export default function PostCard({ post, facebookPage }: any) {
                 {post?.message && <p>{post?.message}</p>}
             </div>
             <div>
-                {/* for image */}
+                {/* for photo */}
                 {
+                    post?.attachments?.data?.[0]?.type === 'photo' &&
                     post?.attachments?.data?.[0].media?.image?.src &&
-                    !post?.attachments?.data?.[0].media?.source &&
                     <img
                         src={post?.attachments?.data?.[0].media?.image?.src}
                         alt="Post_Photo"
@@ -56,8 +46,8 @@ export default function PostCard({ post, facebookPage }: any) {
 
                 {/* for video */}
                 {
+                    post?.attachments?.data?.[0]?.type === 'video_inline' &&
                     post?.attachments?.data?.[0].media?.source &&
-                    post?.attachments?.data?.[0]?.type !== 'share' &&
                     <video
                         controls
                         className="w-full max-h-[400px]"
@@ -69,14 +59,23 @@ export default function PostCard({ post, facebookPage }: any) {
                 {/* for share video from youtube */}
                 {
                     post?.attachments?.data?.[0]?.type === 'share' &&
+                    post?.attachments?.data?.[0].media?.source &&
                     <iframe
                         width="100%"
                         height="400"
-                        src="https://www.youtube.com/embed/RGq12hnxvkk?autoplay=1"
+                        src={post?.attachments?.data?.[0].media?.source}
                         title="YouTube video player"
                         allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
                     />
+                }
+
+                {/* for share post from youtube */}
+                {
+                    post?.attachments?.data?.[0]?.type === 'share' &&
+                    !post?.attachments?.data?.[0].media?.source &&
+                    post?.attachments?.data?.[0].media?.image?.src &&
+                    <p className="text-xl font-bold px-4 py-2">Shared link.</p>
                 }
 
                 {/* for share video from facebook */}
@@ -84,20 +83,19 @@ export default function PostCard({ post, facebookPage }: any) {
                     !post?.message &&
                     !post?.attachments?.data?.[0].media?.image?.src &&
                     !post?.attachments?.data?.[0].media?.source &&
-                    post?.attachments?.data?.[0]?.type !== 'share' &&
-                    <p className="px-4 py-2">Facebook video shared.</p>
+                    <p className="text-xl font-bold px-4 py-2">Shared post.</p>
                 }
             </div>
             {
-                post?.link &&
+                post?.permalink_url &&
                 <div className="px-4 pt-3 text-center">
                     <a
-                        href={post?.link}
+                        href={post?.permalink_url}
                         target="_blank"
                         rel="noreferrer"
                         className="text-[#2d68bb] font-semibold hover:underline"
                     >
-                        {post?.privacy?.description === 'Public' && 'See Original Post'}
+                        {'See Original Post'}
                     </a>
                 </div>
             }
