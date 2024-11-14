@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from '../../redux/app/hooks';
 import { adminLoggedOut } from '../../redux/features/auth/authSlice';
 import { SidebarProps } from './types';
@@ -27,7 +27,12 @@ export default function Sidebar({ activeMenu }: SidebarProps) {
 
     return (
         <nav className="h-full w-[25%] bg-[#fff] flex flex-col border-r">
-            <h1 className="text-2xl font-bold text-center text-gray-800 py-5 border-b border-gray-200 mb-4">Page Management System</h1>
+            <div className="text-center py-5 border-b border-gray-200 mb-4">
+                <Link to="/" className="text-2xl font-bold text-gray-800 ">
+                    Page Management System
+                </Link>
+            </div>
+
             <div className="flex-grow overflow-y-auto px-5"> {/* Sidebar scrollable */}
                 <ul>
                     <li

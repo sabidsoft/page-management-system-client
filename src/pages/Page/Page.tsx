@@ -6,6 +6,7 @@ import Loader from "../../components/loader/Loader";
 import ErrorMessage from "../../components/errorMessage/ErrorMessage";
 import Posts from "../../components/posts/Posts";
 import CreatePagePost from "../../components/createPagePost/CreatePagePost";
+import Insights from "../../components/insights/Insights";
 import About from "../../components/about/About";
 
 export default function Page() {
@@ -18,6 +19,7 @@ export default function Page() {
     let content;
 
     if (isLoading) content = <Loader />;
+
     if (!isLoading && isError) content = <ErrorMessage message="Something went wrong." />;
 
     if (!isLoading && !isError && facebookPage) {
@@ -27,11 +29,14 @@ export default function Page() {
         else if (activeTab === "Create Post")
             content =
                 <div className="flex justify-center items-center flex-grow min-h-[calc(100vh-200px)]">
-                    <CreatePagePost facebookPage={facebookPage} setActiveTab={setActiveTab} />;
+                    <CreatePagePost facebookPage={facebookPage} setActiveTab={setActiveTab} />
                 </div>
 
         else if (activeTab === "About")
             content = <About facebookPage={facebookPage} />;
+
+        else if (activeTab === "Insights")
+            content = <Insights facebookPage={facebookPage} />;
     }
 
     return (
@@ -39,11 +44,23 @@ export default function Page() {
             <Sidebar activeMenu="Pages" />
 
             <main className="w-[75%] pb-6 overflow-y-auto">
-                <h2 className="bg-[#fff] text-center text-2xl font-bold py-5">{facebookPage?.pageName}</h2>
+                <div className="bg-[#fff] flex justify-center pt-5">
+                    <div className="flex items-center">
+                        <img
+                            src={facebookPage?.pageProfilePicture}
+                            alt="Profile_Picture"
+                            width={50}
+                            height={50}
+                            className="border-2 border-gray-200 p-0.5 rounded-full"
+                        />
+                        <h3 className="text-2xl font-bold ml-2">{facebookPage?.pageName}</h3>
+                    </div>
+                </div>
+
                 {/* Sticky Tabs */}
-                <div className="bg-[#fff] sticky top-0 z-10 pt-3 shadow">
+                <div className="bg-[#fff] sticky top-0 z-10 pt-4 shadow">
                     <div className="flex justify-center w-[700px] mx-auto space-x-6 mb-6 ">
-                        {["Posts", "Create Post", "About"].map((tab) => (
+                        {["Posts", "Create Post", "About", "Insights"].map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}

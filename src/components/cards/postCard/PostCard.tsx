@@ -1,13 +1,10 @@
 import { format, formatDistanceToNow, parseISO } from "date-fns";
-import { Link } from "react-router-dom";
 
 export default function PostCard({ post, facebookPage }: any) {
     // Format the dates
     const createdTimeAgo = post?.created_time ? formatDistanceToNow(parseISO(post?.created_time), { addSuffix: true }) : 'N/A';
     const createdTime = post?.created_time ? format(parseISO(post?.created_time), 'h:mm:ss a - MMM d, yyyy') : 'N/A';
     const updatedTime = post?.updated_time ? format(parseISO(post?.updated_time), 'h:mm:ss a - MMM d, yyyy') : 'N/A';
-
-    console.log(post)
 
     return (
         <div className="bg-[#fff] w-[700px] mb-5 rounded-xl shadow">

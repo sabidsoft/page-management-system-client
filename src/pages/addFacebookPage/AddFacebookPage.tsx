@@ -57,7 +57,7 @@ export default function AddFacebookPage() {
                                 appId='410611048778188'
                                 autoLoad={false}
                                 fields="name,email,picture"
-                                scope='pages_show_list,pages_read_engagement,pages_read_user_content,pages_manage_posts,read_insights'
+                                scope='email,public_profile,pages_show_list,pages_read_engagement,pages_read_user_content,pages_manage_posts,pages_manage_metadata,read_insights'
                                 callback={responseCallback}
                                 render={(renderProps: any) => (
                                     <button

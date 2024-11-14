@@ -4,7 +4,7 @@ import { BASE_URL } from '../../../utils/baseUrl';
 
 export const globalApi = createApi({
     reducerPath: 'pageManagementApi',
-    tagTypes: ['Admins', 'admin', 'FacebookPages', 'FacebookPage', 'FacebookPagePosts', 'FacebookPagePost'],
+    tagTypes: ['Admins', 'admin', 'FacebookPages', 'FacebookPage', 'FacebookPagePosts', 'FacebookPagePost', 'FacebookPageInsights'],
     baseQuery: fetchBaseQuery({
         baseUrl: `${BASE_URL}`,
         prepareHeaders: async (headers, { getState }) => {
