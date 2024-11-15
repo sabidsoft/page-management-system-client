@@ -38,7 +38,7 @@ export default function About({ facebookPage }: any) {
                             height={70}
                             className="border-2 border-gray-200 p-0.5 rounded-full"
                         />
-                        <div className="ml-2">
+                        <div className="ml-4">
                             <h2 className="text-lg font-semibold">{name}</h2>
                             <p className="text-gray-500 text-xs font-semibold">{category}</p>
                         </div>
