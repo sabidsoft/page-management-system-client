@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import defaultProfilePicture from "../../../assets/default_avatar.png";
 
 export default function PageCard({ facebookPage }: any) {
     const navigate = useNavigate();
@@ -8,13 +9,15 @@ export default function PageCard({ facebookPage }: any) {
     };
 
     return (
-        <div 
-            onClick={goToFacebookPage} 
+        <div
+            onClick={goToFacebookPage}
             className="flex items-center cursor-pointer rounded-lg px-4 py-4 shadow bg-[#fff] transform transition-transform duration-300 hover:scale-105"
         >
             <img
-                src={facebookPage?.pageProfilePicture}
+                src={facebookPage?.pageProfilePicture ?? defaultProfilePicture}
                 alt="Profile_Picture"
+                width={50}
+                height={50}
                 className="border rounded-lg"
             />
             <div className="ml-4">

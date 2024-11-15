@@ -8,6 +8,7 @@ import Posts from "../../components/posts/Posts";
 import CreatePagePost from "../../components/createPagePost/CreatePagePost";
 import Insights from "../../components/insights/Insights";
 import About from "../../components/about/About";
+import defaultProfilePicture from "../../assets/default_avatar.png";
 
 export default function Page() {
     const { pageId } = useParams();
@@ -44,7 +45,7 @@ export default function Page() {
                 <div className="bg-[#fff] flex justify-center pt-5">
                     <div className="flex items-center">
                         <img
-                            src={facebookPage?.pageProfilePicture}
+                            src={facebookPage?.pageProfilePicture ?? defaultProfilePicture}
                             alt="Profile_Picture"
                             width={50}
                             height={50}

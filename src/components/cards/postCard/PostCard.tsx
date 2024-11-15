@@ -1,4 +1,5 @@
 import { format, formatDistanceToNow, parseISO } from "date-fns";
+import defaultProfilePicture from "../../../assets/default_avatar.png";
 
 export default function PostCard({ post, facebookPage }: any) {
     // Format the dates
@@ -11,9 +12,11 @@ export default function PostCard({ post, facebookPage }: any) {
             <div className="flex justify-between items-center px-4 pt-4">
                 <div className="flex">
                     <img
-                        src={facebookPage?.pageProfilePicture}
+                        src={facebookPage?.pageProfilePicture ?? defaultProfilePicture}
                         alt="Profile_Picture"
-                        className="rounded-full w-[40px] h-[40px] border border-blue-500"
+                        width={40}
+                        height={40}
+                        className="rounded-full border border-blue-500"
                     />
                     <div className="ml-2">
                         <h3 className="text-[#050505] text-sm font-semibold">{facebookPage?.pageName}</h3>
