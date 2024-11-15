@@ -19,7 +19,7 @@ export default function PageCard({ facebookPage }: any) {
             />
             <div className="ml-4">
                 <h3 className="font-bold">{facebookPage?.pageName}</h3>
-                <p className="text-[#888] text-xs">{facebookPage?.pageCategory}</p>
+                <p className="text-gray-500 text-xs font-semibold">{facebookPage?.pageCategory}</p>
             </div>
         </div>
     );

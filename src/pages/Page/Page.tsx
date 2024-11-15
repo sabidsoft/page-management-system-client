@@ -26,24 +26,21 @@ export default function Page() {
         if (activeTab === "Posts")
             content = <Posts facebookPage={facebookPage} />;
 
-        else if (activeTab === "Create Post")
-            content =
-                <div className="flex justify-center items-center flex-grow min-h-[calc(100vh-200px)]">
-                    <CreatePagePost facebookPage={facebookPage} setActiveTab={setActiveTab} />
-                </div>
-
         else if (activeTab === "About")
             content = <About facebookPage={facebookPage} />;
 
         else if (activeTab === "Insights")
             content = <Insights facebookPage={facebookPage} />;
+
+        else if (activeTab === "Create Post")
+            content = <CreatePagePost facebookPage={facebookPage} setActiveTab={setActiveTab} />;
     }
 
     return (
         <div className="flex h-screen">
             <Sidebar activeMenu="Pages" />
 
-            <main className="w-[75%] pb-6 overflow-y-auto">
+            <main className="w-[75%] overflow-y-auto">
                 <div className="bg-[#fff] flex justify-center pt-5">
                     <div className="flex items-center">
                         <img
@@ -59,8 +56,8 @@ export default function Page() {
 
                 {/* Sticky Tabs */}
                 <div className="bg-[#fff] sticky top-0 z-10 pt-4 shadow">
-                    <div className="flex justify-center w-[700px] mx-auto space-x-6 mb-6 ">
-                        {["Posts", "Create Post", "About", "Insights"].map((tab) => (
+                    <div className="flex justify-center w-[700px] mx-auto space-x-6">
+                        {["Posts", "About", "Insights", "Create Post"].map((tab) => (
                             <button
                                 key={tab}
                                 onClick={() => setActiveTab(tab)}
@@ -77,7 +74,7 @@ export default function Page() {
                 </div>
 
                 {/* Render Content Based on Active Tab */}
-                <div>
+                <div className="px-4 py-16">
                     {content}
                 </div>
             </main>

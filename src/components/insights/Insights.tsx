@@ -91,7 +91,7 @@ export default function Insights({ facebookPage }: any) {
             labels,
             datasets: [
                 {
-                    label: "Insights Value",
+                    label: "Total",
                     data: values,
                     backgroundColor: "rgba(54, 162, 235, 0.6)",
                     borderColor: "rgba(54, 162, 235, 1)",
@@ -121,10 +121,10 @@ export default function Insights({ facebookPage }: any) {
     const monthlyChartData = prepareChartData(monthlyInsights);
 
     return (
-        <div className="flex flex-col items-center px-6">
+        <div className="flex flex-col items-center">
             {/* Table for Insights */}
-            <div className="bg-white w-full max-w-[1000px] p-6 rounded-lg shadow mb-6">
-                <h2 className="text-xl font-semibold text-center text-blue-500 pb-6">Page Insights Table</h2>
+            <div className="bg-white w-full max-w-[1000px] p-6 rounded-lg shadow mb-10">
+                <h2 className="text-xl font-semibold text-center pb-6">Page Insights Table</h2>
                 <div className="overflow-x-auto">
                     <table className="min-w-full bg-white border rounded-lg shadow-sm">
                         <thead className="bg-gray-100">
@@ -170,46 +170,46 @@ export default function Insights({ facebookPage }: any) {
                         </tbody>
                     </table>
                 </div>
-                <p className="text-center text-xs text-gray-500 italic pt-6">Last Count: {format(parseISO(endTime), 'MMM d, yyyy - h:mm:ss a') }</p>
+                <p className="text-center text-xs text-gray-500 italic pt-6">Last Count: {format(parseISO(endTime), 'MMM d, yyyy - h:mm:ss a')}</p>
             </div>
 
-            <div className="bg-white w-full max-w-[1000px] p-6 rounded-lg shadow mb-6">
-                {/* Daily Insights Chart */}
+            {/* Daily Insights Chart */}
+            <div className="bg-white w-full max-w-[1000px] p-6 rounded-lg shadow mb-10">
                 <div className="mb-6">
-                    <h2 className="text-xl font-semibold text-center py-4 text-blue-500">Daily Page Insights Chart</h2>
+                    <h2 className="text-xl font-semibold text-center text-blue-500">Daily Page Insights Chart</h2>
                     {dailyInsights.length > 0 ? (
                         <Bar data={dailyChartData} options={chartOptions} />
                     ) : (
                         <p className="text-gray-500">No daily insights available.</p>
                     )}
                 </div>
-                <p className="text-center text-xs text-gray-500 italic pt-6">Last Count {new Date(endTime).toLocaleString()}</p>
+                <p className="text-center text-xs text-gray-500 italic">Last Count {new Date(endTime).toLocaleString()}</p>
             </div>
 
-            <div className="bg-white w-full max-w-[1000px] p-6 rounded-lg shadow mb-6">
-                {/* Weekly Insights Chart */}
+            {/* Weekly Insights Chart */}
+            <div className="bg-white w-full max-w-[1000px] p-6 rounded-lg shadow mb-10">
                 <div className="mb-6">
-                    <h2 className="text-xl font-semibold text-center py-4 text-blue-500">Weekly Page Insights Chart</h2>
+                    <h2 className="text-xl font-semibold text-center text-blue-500">Weekly Page Insights Chart</h2>
                     {weeklyInsights.length > 0 ? (
                         <Bar data={weeklyChartData} options={chartOptions} />
                     ) : (
                         <p className="text-gray-500">No weekly insights available.</p>
                     )}
                 </div>
-                <p className="text-center text-xs text-gray-500 italic pt-6">Last Count {new Date(endTime).toLocaleString()}</p>
+                <p className="text-center text-xs text-gray-500 italic">Last Count {new Date(endTime).toLocaleString()}</p>
             </div>
 
+            {/* 28 Days Insights Chart */}
             <div className="bg-white w-full max-w-[1000px] p-6 rounded-lg shadow">
-                {/* 28 Days Insights Chart */}
-                <div>
-                    <h2 className="text-xl font-semibold text-center py-4 text-blue-500">28 Days Page Insights Chart</h2>
+                <div className="mb-6">
+                    <h2 className="text-xl font-semibold text-center text-blue-500">28 Days Page Insights Chart</h2>
                     {monthlyInsights.length > 0 ? (
                         <Bar data={monthlyChartData} options={chartOptions} />
                     ) : (
                         <p className="text-gray-500">No 28 days insights available.</p>
                     )}
                 </div>
-                <p className="text-center text-xs text-gray-500 italic pt-6">Last Count {new Date(endTime).toLocaleString()}</p>
+                <p className="text-center text-xs text-gray-500 italic">Last Count {new Date(endTime).toLocaleString()}</p>
             </div>
         </div>
     );

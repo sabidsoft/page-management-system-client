@@ -69,7 +69,7 @@ export default function CreatePagePost({ facebookPage, setActiveTab }: any) {
                 isLoading ?
                     <Loader /> :
                     <div className='flex justify-center'>
-                        <form onSubmit={handleSubmit} className="bg-[#fff] w-[700px] p-6 rounded-xl shadow">
+                        <form onSubmit={handleSubmit} className="bg-[#fff] w-[900px] p-6 rounded-xl shadow">
                             <h2 className='text-center text-3xl pb-6 font-bold'>Create Post</h2>
 
                             {/* Message Field */}
