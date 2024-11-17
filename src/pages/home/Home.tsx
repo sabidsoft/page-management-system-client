@@ -31,7 +31,7 @@ export default function Home() {
     return (
         <div className="flex h-screen">
             {/* Sidebar */}
-            <Sidebar activeMenu='Pages' />
+            <Sidebar activeMenu='All Pages' />
 
             {/* Main Content */}
             <main className="w-[75%] px-5 overflow-y-auto">

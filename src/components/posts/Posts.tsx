@@ -4,17 +4,17 @@ import ErrorMessage from "../errorMessage/ErrorMessage";
 import Loader from "../loader/Loader";
 
 export default function Page({ facebookPage }: any) {
-    const { data: postsData, isError: isPostsError, isLoading: postsIsLoading } = useGetFacebookPagePostsQuery(facebookPage?.pageId as string);
+    const { data, isError, isLoading } = useGetFacebookPagePostsQuery(facebookPage?.pageId as string);
 
-    const posts = postsData?.data?.posts;
-    // const paging = postsData?.data?.paging;
+    const posts = data?.data?.posts;
+    // const paging = data?.data?.paging;
 
-    if (postsIsLoading) return <Loader />;
+    if (isLoading) return <Loader />;
 
-    if (!postsIsLoading && isPostsError)
+    if (!isLoading && isError)
         return <ErrorMessage message="Something went wrong." />;
 
-    if (!postsIsLoading && !isPostsError && posts && posts.length === 0)
+    if (!isLoading && !isError && posts && posts.length === 0)
         return <ErrorMessage message='Opps! Sorry! There is no post available!' />;
 
     return (

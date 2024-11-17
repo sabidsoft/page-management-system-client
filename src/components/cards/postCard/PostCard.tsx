@@ -1,14 +1,34 @@
+import { useState } from "react";
 import { format, formatDistanceToNow, parseISO } from "date-fns";
 import defaultProfilePicture from "../../../assets/default_avatar.png";
+import { useGetFacebookPagePostInsightsQuery } from "../../../redux/features/api/endPoints/facebookPageEndpoint/facebookPageEndpoint";
+import { PostCardProps } from "./types";
+import PostInsightsModal from "../../modal/postInsightsModal/PostInsightsModal";
 
-export default function PostCard({ post, facebookPage }: any) {
+
+
+export default function PostCard ({ post, facebookPage }: PostCardProps) {
+    const { data } = useGetFacebookPagePostInsightsQuery({
+        pageId: facebookPage?.pageId as string,
+        postId: post?.id as string
+    });
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const insights = data?.data?.insights || [];
+
     // Format the dates
-    const createdTimeAgo = post?.created_time ? formatDistanceToNow(parseISO(post?.created_time), { addSuffix: true }) : 'N/A';
-    const createdTime = post?.created_time ? format(parseISO(post?.created_time), 'h:mm:ss a - MMM d, yyyy') : 'N/A';
-    const updatedTime = post?.updated_time ? format(parseISO(post?.updated_time), 'h:mm:ss a - MMM d, yyyy') : 'N/A';
+    const createdTimeAgo = post?.created_time
+        ? formatDistanceToNow(parseISO(post?.created_time), { addSuffix: true })
+        : "N/A";
+    const createdTime = post?.created_time
+        ? format(parseISO(post?.created_time), "h:mm:ss a - MMM d, yyyy")
+        : "N/A";
+    const updatedTime = post?.updated_time
+        ? format(parseISO(post?.updated_time), "h:mm:ss a - MMM d, yyyy")
+        : "N/A";
 
     return (
-        <div className="bg-[#fff] w-[700px] mb-5 rounded-xl shadow">
+        <div className="bg-[#fff] w-[700px] mb-5 rounded-xl shadow relative">
             <div className="flex justify-between items-center px-4 pt-4">
                 <div className="flex">
                     <img
@@ -23,71 +43,51 @@ export default function PostCard({ post, facebookPage }: any) {
                         <p className="text-[#B0B3B8] text-xs">{createdTimeAgo}</p>
                     </div>
                 </div>
-                <div>
-                    Test
-                </div>
+                <button
+                    onClick={() => setIsModalOpen(true)}
+                    className=" text-[#2d68bb] font-semibold hover:underline"
+                >
+                    Show Insights
+                </button>
             </div>
 
-            {/* for message */}
-            <div className="px-4 py-4">
-                {post?.message && <p>{post?.message}</p>}
-            </div>
+            {/* Message */}
+            <div className="px-4 py-4">{post?.message && <p>{post?.message}</p>}</div>
             <div>
-                {/* for photo */}
-                {
-                    post?.attachments?.data?.[0]?.type === 'photo' &&
-                    post?.attachments?.data?.[0].media?.image?.src &&
-                    <img
-                        src={post?.attachments?.data?.[0].media?.image?.src}
-                        alt="Post_Photo"
-                        className=""
-                    />
-                }
+                {/* Photo */}
+                {post?.attachments?.data?.[0]?.type === "photo" &&
+                    post?.attachments?.data?.[0].media?.image?.src && (
+                        <img
+                            src={post?.attachments?.data?.[0].media?.image?.src}
+                            alt="Post_Photo"
+                            className="w-full max-h-[400px] object-cover"
+                        />
+                    )}
 
-                {/* for video */}
-                {
-                    post?.attachments?.data?.[0]?.type === 'video_inline' &&
-                    post?.attachments?.data?.[0].media?.source &&
-                    <video
-                        controls
-                        className="w-full max-h-[400px]"
-                    >
-                        <source src={post?.attachments?.data?.[0].media?.source} />
-                    </video>
-                }
+                {/* Video */}
+                {post?.attachments?.data?.[0]?.type === "video_inline" &&
+                    post?.attachments?.data?.[0].media?.source && (
+                        <video controls className="w-full max-h-[400px]">
+                            <source src={post?.attachments?.data?.[0].media?.source} />
+                        </video>
+                    )}
 
-                {/* for share video from youtube */}
-                {
-                    post?.attachments?.data?.[0]?.type === 'share' &&
-                    post?.attachments?.data?.[0].media?.source &&
-                    <iframe
-                        width="100%"
-                        height="400"
-                        src={post?.attachments?.data?.[0].media?.source}
-                        title="YouTube video player"
-                        allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowFullScreen
-                    />
-                }
-
-                {/* for share post from youtube */}
-                {
-                    post?.attachments?.data?.[0]?.type === 'share' &&
-                    !post?.attachments?.data?.[0].media?.source &&
-                    post?.attachments?.data?.[0].media?.image?.src &&
-                    <p className="text-xl font-bold px-4 py-2">Shared link.</p>
-                }
-
-                {/* for share video from facebook */}
-                {
-                    !post?.message &&
-                    !post?.attachments?.data?.[0].media?.image?.src &&
-                    !post?.attachments?.data?.[0].media?.source &&
-                    <p className="text-xl font-bold px-4 py-2">Shared post.</p>
-                }
+                {/* Shared Video (YouTube) */}
+                {post?.attachments?.data?.[0]?.type === "share" &&
+                    post?.attachments?.data?.[0].media?.source && (
+                        <iframe
+                            width="100%"
+                            height="400"
+                            src={post?.attachments?.data?.[0].media?.source}
+                            title="YouTube video player"
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowFullScreen
+                        />
+                    )}
             </div>
-            {
-                post?.permalink_url &&
+
+            {/* Permalink */}
+            {post?.permalink_url && (
                 <div className="px-4 pt-3 text-center">
                     <a
                         href={post?.permalink_url}
@@ -95,23 +95,31 @@ export default function PostCard({ post, facebookPage }: any) {
                         rel="noreferrer"
                         className="text-[#2d68bb] font-semibold hover:underline"
                     >
-                        {'See Original Post'}
+                        See Original Post
                     </a>
                 </div>
-            }
+            )}
+
+            {/* Timestamps */}
             <div className="flex justify-between pb-3 px-4">
                 <div>
                     <h5 className="text-sm font-semibold">Post Created</h5>
                     <p className="text-[#777] text-xs">{createdTime}</p>
                 </div>
-                {
-                    createdTime !== updatedTime &&
+                {createdTime !== updatedTime && (
                     <div>
                         <h5 className="text-sm font-semibold text-right">Last Updated</h5>
                         <p className="text-[#777] text-xs">{updatedTime}</p>
                     </div>
-                }
+                )}
             </div>
+
+            {/* Insights Modal */}
+            <PostInsightsModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+                insights={insights}
+            />
         </div>
     );
-}
+};

@@ -39,7 +39,7 @@ export default function Page() {
 
     return (
         <div className="flex h-screen">
-            <Sidebar activeMenu="Pages" />
+            <Sidebar activeMenu="All Pages" />
 
             <main className="w-[75%] overflow-y-auto">
                 <div className="bg-[#fff] flex justify-center pt-5">

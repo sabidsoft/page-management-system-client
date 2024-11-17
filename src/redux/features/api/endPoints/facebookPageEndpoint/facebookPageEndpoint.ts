@@ -57,6 +57,15 @@ export const facebookPageEndpoint = globalApi.injectEndpoints({
             providesTags: (result, error, arg) => [{ type: 'FacebookPageInsights', id: arg }]
         }),
 
+        getFacebookPagePostInsights: builder.query<any, { pageId: string; postId: string }>({
+            query: ({ pageId, postId }) => ({
+                url: `/api/facebook-pages/${pageId}/posts/${postId}/insights`,
+                method: 'GET'
+            }),
+            keepUnusedDataFor: 60,
+            providesTags: (result, error, { pageId, postId }) => [{ type: 'FacebookPagePostInsights', id: `${pageId}-${postId}` },],
+        }),
+
         postToFacebookPage: builder.mutation<any, any>({
             query: (data) => ({
                 url: `/api/facebook-pages/create-page-post`,
@@ -84,6 +93,7 @@ export const {
     useGetFacebookPagePostsQuery,
     useGetFacebookPageAboutQuery,
     useGetFacebookPageInsightsQuery,
+    useGetFacebookPagePostInsightsQuery,
     usePostToFacebookPageMutation,
     usePostToFacebookPagesMutation,
 } = facebookPageEndpoint;
