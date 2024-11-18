@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
-import useTitle from '../../hooks/useTitle';
 import { usePostToFacebookPageMutation } from '../../redux/features/api/endPoints/facebookPageEndpoint/facebookPageEndpoint';
 import { toast } from 'react-toastify';
 import Loader from '../../components/loader/Loader';
 import { PostData } from './types';
 
 export default function CreatePagePost({ facebookPage, setActiveTab }: any) {
-    useTitle('Create Pages Post');
     const [errorMessage, setErrorMessage] = useState('');
     const [postToFacebookPage, { data, error, isLoading }] = usePostToFacebookPageMutation();
     const [postData, setPostData] = useState<PostData>({
